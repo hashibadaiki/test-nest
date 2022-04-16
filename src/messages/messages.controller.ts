@@ -27,8 +27,8 @@ export class MessagesController {
 
   // この書き方だとURLはなんでもいい
   @Post('/:id')
-  createMessageWithID(@Body() body: CreateMessageDto) {
-    return this.messagesService.createID(body.contentID, body.id);
+  createMessageWithID(@Body() body: CreateMessageDto, @Param('id') id: string) {
+    return this.messagesService.createID(body.contentID, id);
   }
 
   @Get('/:id')

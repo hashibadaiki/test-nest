@@ -9,5 +9,4 @@ export class CreateMessageDto {
   @IsOptional()
   contentID: string;
   content: string;
-  id: string;
 }
