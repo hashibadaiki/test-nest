@@ -18,7 +18,7 @@ export class MessagesService {
   }
 
   // 実行してるだけ
-  createID(contentID: string, id: string) {
-    return this.messagesRepo.createID(contentID, id);
+  edit(contentID: string, id: string) {
+    return this.messagesRepo.edit(contentID, id);
   }
 }

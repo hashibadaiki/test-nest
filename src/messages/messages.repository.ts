@@ -11,14 +11,6 @@ export class MessagesRepository {
   async findOne(id: string) {
     const contents = await readFile('messages.json', 'utf8');
     const messages = JSON.parse(contents);
-    console.log(messages[id]);
-
-    return messages[id];
-  }
-  async editMessage(id: string) {
-    const contents = await readFile('messages.json', 'utf8');
-    const messages = JSON.parse(contents);
-    console.log(messages[id]);
 
     return messages[id];
   }
@@ -31,9 +23,7 @@ export class MessagesRepository {
   }
 
   async create(content: string) {
-    console.log(content);
     const contents = await readFile('messages.json', 'utf8');
-    console.log(contents);
     const messages = JSON.parse(contents);
 
     const id = Math.floor(Math.random() * 999);
@@ -45,16 +35,15 @@ export class MessagesRepository {
 
   // この引数は単なる引数ではなくjsonのkeyに影響した
   // ここがtestだとjsonにinsertされるのもtest
-  async createID(contentID: string, id: string) {
+  async edit(contentID: string, id: string) {
     const contents = await readFile('messages.json', 'utf8');
     const messages = JSON.parse(contents);
-    console.log(messages[id].id);
 
-    if (id !== messages[id].id) {
-      // idが存在しない場合はerror
-      console.log('ok');
-      throw new Error(`${id} is not found`);
-    }
+    // idがない場合ここに到達できないのでcontrollerに書く
+    // if (id !== messages[id].id) {
+    //   // idが存在しない場合はerror
+    //   throw new Error(`${id} is not found`);
+    // }
 
     messages[id] = { id, contentID };
 

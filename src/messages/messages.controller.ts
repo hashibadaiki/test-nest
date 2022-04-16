@@ -27,8 +27,13 @@ export class MessagesController {
 
   // この書き方だとURLはなんでもいい
   @Post('/:id')
-  createMessageWithID(@Body() body: CreateMessageDto, @Param('id') id: string) {
-    return this.messagesService.createID(body.contentID, id);
+  async editMessage(@Body() body: CreateMessageDto, @Param('id') id: string) {
+    const message = await this.messagesService.findOne(id);
+
+    if (!message) {
+      throw new NotFoundException(`${id} is not found`);
+    }
+    return this.messagesService.edit(body.content, id);
   }
 
   @Get('/:id')
