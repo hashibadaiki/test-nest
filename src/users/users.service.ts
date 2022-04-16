@@ -1,25 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepository } from './users.repository';
-// import { MessagesRepository } from './messages.repository';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './user.entity';
 
 @Injectable()
 export class UsersService {
-  constructor(public usersRepo: UsersRepository) {}
+  constructor(@InjectRepository(User) private repo: Repository<User>) {}
 
-  // findOne(id: string) {
-  //   return this.usersRepo.findOne(id);
-  // }
+  create(email: string, password: string) {
+    // create()でEntityのインスタンスを作成
+    const user = this.repo.create({ email, password });
 
-  findAll() {
-    return this.usersRepo.findAll();
+    // save()でDBにデータを保存
+    return this.repo.save(user);
   }
-
-  // create(content: string) {
-  //   return this.messagesRepo.create(content);
-  // }
-
-  // // 実行してるだけ
-  // edit(contentID: string, id: string) {
-  //   return this.messagesRepo.edit(contentID, id);
-  // }
 }
