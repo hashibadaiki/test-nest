@@ -1,3 +1,4 @@
+import { Expose } from 'class-transformer';
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 // バリデーションの為のfileっぽい
@@ -19,4 +20,12 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   password: string;
+}
+
+export class UserDto {
+  @Expose()
+  id: number;
+
+  @Expose()
+  email: string;
 }
