@@ -16,4 +16,9 @@ export class MessagesService {
   create(content: string) {
     return this.messagesRepo.create(content);
   }
+
+  // 実行してるだけ
+  createID(contentID: string, id: string) {
+    return this.messagesRepo.createID(contentID, id);
+  }
 }

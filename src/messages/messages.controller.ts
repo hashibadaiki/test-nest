@@ -9,6 +9,8 @@ import {
 import { CreateMessageDto } from 'src/dtos/create-message.dto';
 import { MessagesService } from './messages.service';
 
+// pathに対して実行するmethodを定義している
+
 @Controller('messages')
 export class MessagesController {
   constructor(public messagesService: MessagesService) {}
@@ -21,6 +23,12 @@ export class MessagesController {
   @Post()
   createMessage(@Body() body: CreateMessageDto) {
     return this.messagesService.create(body.content);
+  }
+
+  // この書き方だとURLはなんでもいい
+  @Post('/:id')
+  createMessageWithID(@Body() body: CreateMessageDto) {
+    return this.messagesService.createID(body.contentID, body.id);
   }
 
   @Get('/:id')
