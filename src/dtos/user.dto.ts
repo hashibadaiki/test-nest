@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 
 // バリデーションの為のfileっぽい
 // data transfer object なので変更しつつ見てるっぽい
@@ -8,5 +8,15 @@ export class CreateUserDto {
   @IsString()
   @IsOptional()
   email: string;
+  password: string;
+}
+
+export class UpdateUserDto {
+  @IsEmail()
+  @IsOptional()
+  email: string;
+
+  @IsString()
+  @IsOptional()
   password: string;
 }
