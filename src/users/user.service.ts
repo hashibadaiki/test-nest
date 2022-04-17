@@ -4,19 +4,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 
 @Injectable()
-export class UsersService {
-  constructor(@InjectRepository(User) private repo: Repository<User>) {}
+export class UserService {
+  constructor(
+    @InjectRepository(User) private usersRepository: Repository<User>,
+  ) {}
 
   create(email: string, password: string) {
     // create()でEntityのインスタンスを作成
-    const user = this.repo.create({ email, password });
+    const user = this.usersRepository.create({ email, password });
 
     // save()でDBにデータを保存
-    return this.repo.save(user);
+    return this.usersRepository.save(user);
   }
 
   findOne(id: number) {
-    return this.repo.findOne(id);
+    return this.usersRepository.findOne(id);
   }
 
   async update(id: number, attrs: Partial<User>) {
@@ -26,6 +28,6 @@ export class UsersService {
     }
 
     Object.assign(user, attrs);
-    return this.repo.save(user);
+    return this.usersRepository.save(user);
   }
 }
