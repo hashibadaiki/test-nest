@@ -6,8 +6,10 @@ import {
   Patch,
   Post,
   Session,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserDto, UpdateUserDto, UserDto } from 'src/dtos/user.dto';
 import { CurrentUser } from './current-user.decorator';
@@ -50,6 +52,7 @@ export class UserController {
   }
 
   @Get('/whoami')
+  @UseGuards(AuthGuard)
   whoAmI(@CurrentUser() user: User) {
     return user;
   }
