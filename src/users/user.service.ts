@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
@@ -18,7 +18,14 @@ export class UserService {
   }
 
   findOne(id: number) {
+    console.log(id);
     return this.usersRepository.findOne(id);
+  }
+
+  find(email: string) {
+    console.log(email);
+    console.log({ email });
+    return this.usersRepository.find({ email });
   }
 
   async update(id: number, attrs: Partial<User>) {
