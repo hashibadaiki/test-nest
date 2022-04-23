@@ -21,6 +21,10 @@ export class UsersService {
     return this.usersRepository.findOne(id);
   }
 
+  find(email: string) {
+    return this.usersRepository.find({ email });
+  }
+
   async update(id: number, attrs: Partial<User>) {
     const user = await this.findOne(id);
     if (!user) {
