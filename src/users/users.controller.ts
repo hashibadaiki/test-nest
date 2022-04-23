@@ -6,14 +6,18 @@ import {
   Patch,
   Post,
   Session,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserDto, UpdateUserDto, UserDto } from 'src/dtos/user.dto';
-import { Serialize } from './serialize.interceptor';
+import { CurrentUser } from './current-user.decorator';
+import { CurrentUserInterceptor, Serialize } from './serialize.interceptor';
+import { User } from './user.entity';
 import { UsersService } from './user.service';
 
 @Controller('auth')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UserController {
   constructor(
     private usersService: UsersService,
@@ -43,6 +47,11 @@ export class UserController {
   @Patch('/:id')
   updateUser(@Param('id') id: string, @Body() body: UpdateUserDto) {
     return this.usersService.update(parseInt(id), body);
+  }
+
+  @Get('/whoami')
+  whoAmI(@CurrentUser() user: User) {
+    return user;
   }
 
   @Get('/:id')
