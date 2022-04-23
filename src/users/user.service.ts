@@ -18,10 +18,13 @@ export class UsersService {
   }
 
   findOne(id: number) {
+    console.log(id);
     return this.usersRepository.findOne(id);
   }
 
   find(email: string) {
+    console.log(email);
+    console.log({ email });
     return this.usersRepository.find({ email });
   }
 
